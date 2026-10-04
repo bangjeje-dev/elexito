@@ -1,0 +1,73 @@
+/* src/components/layout/Layout.css */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--color-bg-primary);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.header {
+  background-color: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo {
+  height: 46px; /* Stronger mobile presence */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: height 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .brand-logo {
+    height: 54px; /* Increased desktop size */
+  }
+}
+
+.brand-text-fallback {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: var(--space-12);
+}
+
+.footer {
+  background-color: #000000;
+  padding: var(--space-8) 0;
+  text-align: center;
+}
+
+.footer-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--text-sm);
+  margin: 0;
+}
