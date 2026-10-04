@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, MessageCircle } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { products } from '../data/products';
 import type { Product, ProductVariant } from '../data/types';
 import { Button } from '../components/ui/Button';
@@ -12,6 +12,8 @@ export function ProductDetail() {
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const found = products.find(p => p.slug === slug);
@@ -26,11 +28,34 @@ export function ProductDetail() {
   if (!product) {
     return (
       <div className="container" style={{ padding: 'var(--space-12) 0', textAlign: 'center' }}>
-        <h2>Product not found</h2>
-        <Button onClick={() => navigate('/')} style={{ marginTop: 'var(--space-4)' }}>Back to Catalogue</Button>
+        <h2>Produk tidak ditemukan</h2>
+        <Button onClick={() => navigate('/')} style={{ marginTop: 'var(--space-4)' }}>Kembali ke Katalog</Button>
       </div>
     );
   }
+
+  const activeImages = selectedVariant?.images && selectedVariant.images.length > 0 
+    ? selectedVariant.images 
+    : product.images;
+
+  const handleVariantSelect = (variant: ProductVariant) => {
+    setSelectedVariant(variant);
+    setActiveIndex(0);
+    const scrollContainer = document.querySelector('.gallery-scroll');
+    if (scrollContainer) {
+      scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const scrollPosition = container.scrollLeft;
+    const itemWidth = container.clientWidth;
+    const newIndex = Math.round(scrollPosition / itemWidth);
+    if (newIndex !== activeIndex) {
+      setActiveIndex(newIndex);
+    }
+  };
 
   const handleOrder = () => {
     if (!product) return;
@@ -47,19 +72,26 @@ export function ProductDetail() {
       <div className="container">
         <button className="back-btn" onClick={() => navigate(-1)} aria-label="Go back">
           <ChevronLeft size={24} />
-          <span>Back to Catalogue</span>
+          <span>Kembali ke Katalog</span>
         </button>
       </div>
 
       <div className="container detail-container">
         <div className="product-gallery">
-          <div className="gallery-scroll">
-            {product.images.map((img, index) => (
+          <div className="gallery-scroll" onScroll={handleScroll}>
+            {activeImages.map((img, index) => (
               <div key={index} className="gallery-item">
                 <img src={img} alt={`${product.name} ${index + 1}`} />
               </div>
             ))}
           </div>
+          {activeImages.length > 1 && (
+            <div className="gallery-indicators">
+              {activeImages.map((_, idx) => (
+                <div key={idx} className={`indicator-dot ${idx === activeIndex ? 'active' : ''}`} />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="product-info">
@@ -77,13 +109,13 @@ export function ProductDetail() {
 
           {product.variants && product.variants.length > 0 && (
             <div className="product-variants">
-              <h3 className="variants-title">Select Option</h3>
+              <h3 className="variants-title">Pilih Varian</h3>
               <div className="variants-list">
                 {product.variants.map((variant) => (
                   <button
                     key={variant.id}
                     className={`variant-btn ${selectedVariant?.id === variant.id ? 'selected' : ''}`}
-                    onClick={() => setSelectedVariant(variant)}
+                    onClick={() => handleVariantSelect(variant)}
                   >
                     <div className="variant-name">{variant.name} {variant.size && `(${variant.size})`}</div>
                     <div className="variant-price">Rp{variant.price.toLocaleString('id-ID')}</div>
@@ -98,11 +130,16 @@ export function ProductDetail() {
               variant="whatsapp" 
               fullWidth 
               onClick={handleOrder}
-              icon={<MessageCircle size={20} />}
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                  <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                </svg>
+              }
             >
-              Order via WhatsApp
+              Pesan via WhatsApp
             </Button>
-            <p className="action-hint">Opens WhatsApp with a pre-filled message.</p>
+            <p className="action-hint">Akan membuka WhatsApp dengan pesan otomatis.</p>
           </div>
         </div>
       </div>
