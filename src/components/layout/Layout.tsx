@@ -60,7 +60,7 @@ export function Layout({ children }: LayoutProps) {
                     <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
                   </svg>
                 </a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Bakti+Jaya+5+No.44+Rt.10+Rw+17+Kelurahan+Harapan+Jaya,+Bekasi+17124" target="_blank" rel="noopener noreferrer" aria-label="Google Maps" style={{ color: '#ffffff', display: 'inline-flex' }}>
+                <a href="https://maps.app.goo.gl/svGdwWxVqESqnB9a8" target="_blank" rel="noopener noreferrer" aria-label="Google Maps" style={{ color: '#ffffff', display: 'inline-flex' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
                     <circle cx="12" cy="10" r="3" />
@@ -70,7 +70,11 @@ export function Layout({ children }: LayoutProps) {
             </div>
             
             <div className="footer-address">
-              <p>Jl. Bakti Jaya 5 No.44<br/>Bekasi 17124</p>
+              <p>
+                Atas Nama: Maya / Alfri<br />
+                Cluster Ash-Shiddiq Residence<br />
+                Blok B2 (Rumah Depan Pos Scurity)
+              </p>
             </div>
             
             <div className="footer-copyright">
