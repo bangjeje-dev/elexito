@@ -1,3 +1,4 @@
+import { Download } from 'lucide-react';
 import { ProductCard } from '../components/product/ProductCard';
 import { products } from '../data/products';
 import './Home.css';
@@ -21,6 +22,15 @@ export function Home() {
               <p className="hero-subtitle">
                 Dibuat dengan penuh cinta dan bahan premium. Temukan pilihan kue dan hidangan gurih spesial kami.
               </p>
+              <a 
+                href="https://drive.google.com/drive/folders/1vPZCnr0ykqNLQn_muLXa3ElMtkOhiEAY?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-download-btn"
+              >
+                <Download size={16} aria-hidden="true" />
+                <span>Download Katalog</span>
+              </a>
             </div>
           </div>
         </div>
