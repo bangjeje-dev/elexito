@@ -23,7 +23,7 @@ export function Home() {
                 Dibuat dengan penuh cinta dan bahan premium. Temukan pilihan kue dan hidangan gurih spesial kami.
               </p>
               <a 
-                href="https://drive.google.com/file/d/17IdLQ0jVuCgOVFhA_EKwrwS7HJKbSKRy/view?usp=sharing"
+                href="https://drive.google.com/uc?export=download&id=17IdLQ0jVuCgOVFhA_EKwrwS7HJKbSKRy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hero-download-btn"
